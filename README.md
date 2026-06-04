@@ -1,42 +1,56 @@
-# 🌐 Cloudflare Worker CORS Proxy
+## CORS Proxy - Cloudflare Worker
 
-一个基于 Cloudflare Workers 的轻量级 CORS 代理，解决前端跨域请求问题。
+一个简单的 CORS 代理，解决前端跨域请求问题。
 
-## ✨ 特性
 
-- 🚀 **即部署即用** - 无需配置，部署到 Cloudflare Workers 即可使用
-- 🔄 **全方法支持** - 支持 GET、POST、PUT、DELETE、OPTIONS 等所有 HTTP 方法
-- 📦 **全请求体支持** - 自动转发 JSON、表单、文件等请求体
-- 🔐 **协议限制** - 仅允许 HTTP/HTTPS，确保安全
-- 🌍 **完整 CORS 头** - 自动添加跨域响应头，支持预检请求
-- ⚡ **高性能** - 基于 Cloudflare 全球网络，延迟极低
-
-## 🎯 使用场景
-
-- **前端 API 调试** - 解决本地开发时的跨域问题
-- **第三方服务集成** - 调用不支持 CORS 的第三方 API
-- **静态网站数据获取** - GitHub Pages 等静态站点获取外部数据
-- **临时代理需求** - 快速搭建一个代理服务
-
-## 🚀 一键部署
+## 一键部署
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/dlushu/cloudflare-worker-cors-proxy)
 
+### 基础用法
+```
+https://你的域名.workers.dev/?url=https://api.example.com/data
+```
 
-## 🛠 手动部署
+### POST 请求示例
+```javascript
+fetch('https://你的域名.workers.dev/?url=https://api.example.com/submit', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'test' })
+})
+```
 
-### 1️⃣ 创建 Worker
+### curl 测试
+```bash
+# GET
+curl "https://你的域名.workers.dev/?url=https://api.ipify.org?format=json"
 
-1. 打开 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages**
-2. 点击 **创建 Worker**
-3. 删除默认代码
-4. 完整复制项目中的 `_worker.js` 代码
-5. 点击 **保存并部署**
+# POST
+curl -X POST "https://你的域名.workers.dev/?url=https://httpbin.org/post" \
+  -H "Content-Type: application/json" \
+  -d '{"key":"value"}'
+```
 
-### 2️⃣ 绑定自定义域名（可选）
+## 参数说明
 
-在 Worker 管理页面 → **触发器** → **自定义域** 添加你的域名
+| 参数 | 必填 | 说明 |
+|------|------|------|
+| url | ✅ | 目标地址（需编码） |
 
-## 📖 使用方法
+## 特性
 
-### 基础使用
+- ✅ 支持 GET、POST、PUT、DELETE、OPTIONS
+- ✅ 自动添加 CORS 响应头
+- ✅ 自动转发请求体
+- ✅ 仅允许 HTTP/HTTPS
+
+## 常见问题
+
+**返回 400**：缺少 url 参数或 URL 格式错误
+
+**返回 502**：目标服务器无法访问
+
+## License
+
+MIT

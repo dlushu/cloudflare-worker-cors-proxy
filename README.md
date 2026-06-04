@@ -20,7 +20,8 @@
 
 ## 🚀 一键部署
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](点击此处替换为你的部署链接)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/dlushu/cors-proxy-worker)
+
 
 ## 🛠 手动部署
 
